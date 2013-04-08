@@ -1,0 +1,7 @@
+#ifndef QTXMOCKCORE_MODULE_H
+#define QTXMOCKCORE_MODULE_H
+
+#include "../src/mockcore/mockcoreglobal.h"
+#include "../src/mockcore/mockiodevice.h"
+
+#endif
