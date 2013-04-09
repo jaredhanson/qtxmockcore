@@ -72,8 +72,6 @@ bool MockIODevice::recvNextChunk()
 	name.append( finfo.completeSuffix() );
 	_chunk++;
 	
-	//Logger::trace(QString("  name: %1").arg(name));
-	
 	if (QFile::exists(name))
 	{
 		QFile file(name);
