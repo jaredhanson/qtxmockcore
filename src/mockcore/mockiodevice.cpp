@@ -55,22 +55,16 @@ qint64 MockIODevice::writeData(const char* data, qint64 maxSize)
 
 bool MockIODevice::recvNextChunk()
 {
-    QFileInfo finfo(mFileName);
+    QFileInfo fi(mFileName);
     
-    QString name = finfo.path();
-    name.append( "/" );
-    name.append( finfo.baseName() );
-    name.append( "." );
-    name.append( QString::number(mChunk) );
-    name.append( "." );
-    name.append( finfo.completeSuffix() );
+    QString name = fi.completeBaseName() + "." + QString::number(mChunk) + "." + fi.suffix();
+    QString path = fi.dir().absoluteFilePath(name);
     mChunk++;
     
-    if (QFile::exists(name))
+    if (QFile::exists(path))
     {
-        QFile file(name);
+        QFile file(path);
         file.open(QIODevice::ReadOnly);
-
         mInput = file.readAll();
         
         emit readyRead();
