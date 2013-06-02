@@ -9,32 +9,29 @@ QTX_BEGIN_NAMESPACE
 
 class MockIODevice : public QIODevice
 {
-	Q_OBJECT
-	
+    Q_OBJECT
+    
 public:
-	MockIODevice(const QString & fileName);
-	virtual ~MockIODevice();
-	
-	bool open(OpenMode mode);
-	
-	const QByteArray & output() const;
-	
-signals:
-	void opened();
-	
+    MockIODevice(const QString & fileName);
+    virtual ~MockIODevice();
+    
+    bool open(OpenMode mode);
+    
+    const QByteArray & output() const;
+    
 protected:
-	virtual qint64 readData(char* data, qint64 maxSize);
-	virtual qint64 writeData(const char* data, qint64 maxSize);
-	
+    virtual qint64 readData(char* data, qint64 maxSize);
+    virtual qint64 writeData(const char* data, qint64 maxSize);
+    
 private:
-	bool recvNextChunk();
-	
+    bool recvNextChunk();
+    
 private:
-	QString _fileName;
-	quint32 _chunk;
-	
-	QByteArray _input;
-	QByteArray _output;
+    QString mFileName;
+    quint32 mChunk;
+    
+    QByteArray mInput;
+    QByteArray mOutput;
 };
 
 
