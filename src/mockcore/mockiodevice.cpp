@@ -20,7 +20,7 @@ bool MockIODevice::open(OpenMode mode)
     {
         // The IO device is being opened in read mode (or read/write mode).
         // Read data from the file source into the input buffer.
-        while (recvNextChunk());
+        QMetaObject::invokeMethod(this, "doIO", Qt::QueuedConnection);
     }
     
     return rv;
@@ -53,7 +53,13 @@ qint64 MockIODevice::writeData(const char* data, qint64 maxSize)
     return maxSize;
 }
 
-bool MockIODevice::recvNextChunk()
+void MockIODevice::doIO()
+{
+    while (readChunk());
+    close();
+}
+
+bool MockIODevice::readChunk()
 {
     QFileInfo fi(mFileName);
     
